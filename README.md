@@ -17,7 +17,7 @@ pipenv install
 
 ```sh
 # Mac:
-FLASK_APP=app flask run
+FLASK_APP=app  flask run
 
 # Windows:
 export FLASK_APP=app # one-time thing, to set the env var
