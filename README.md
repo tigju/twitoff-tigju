@@ -12,6 +12,13 @@ cd twitoff-tigju/
 ```sh
 pipenv install
 ```
+Migrate the database:
+
+```sh
+flask db init
+flask db migrate
+flask db update
+```
 
 # Usage 
 
