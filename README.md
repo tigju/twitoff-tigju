@@ -17,7 +17,7 @@ Migrate the database:
 ```sh
 flask db init
 flask db migrate
-flask db update
+flask db upgrade
 ```
 
 # Usage 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Add New Tweet</h1>
+
+    <p>Please type your text in the field!</p>
+
+    <form action="/tweets/create" method="POST">
+
+        <label>Text:</label>
+        <textarea type="text" rows="4" cols="100" maxlength="280" name="tweet_text" placeholder="This is my tweet" value="This is my tweet">
+        </textarea><br/>
+        <label>User:</label>
+        <select name="username">
+            <option value="user1">User 1</option>
+            <option value="user2">User 2</option>
+        </select>
+
+        <button>Tweet</button>
+    </form>
+</body>
+
+</html>
