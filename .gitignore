@@ -1,0 +1,5 @@
+migrations
+*.db
+
+# ignore credentials:
+.env
