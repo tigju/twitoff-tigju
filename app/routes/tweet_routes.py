@@ -13,7 +13,7 @@ def list_tweets():
     print(tweet_records)
 
     tweets = parse_records(tweet_records)
-    return jsonify(tweet)
+    return jsonify(tweets)
 
 @tweet_routes.route("/tweets")
 def show_tweets():

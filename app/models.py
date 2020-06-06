@@ -2,6 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+import datetime
 
 db = SQLAlchemy()
 
@@ -27,9 +28,10 @@ class Tweet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(280))
     user_id = db.Column(db.String(128))
+    date = db.Column(db.DateTime, default=datetime.datetime.now())
 
     def __repr__(self):
-        return f"<Tweet {self.id} {self.text}>"
+        return f"<Tweet {self.id} {self.text} {self.date}>"
     
 def parse_records(database_records):
     """

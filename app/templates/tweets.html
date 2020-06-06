@@ -8,13 +8,13 @@
 </head>
 <body>
     <h2>Welcome to the Tweets Page</h2>
-    
+
     <p>{{ message }}</p>
     
     {% if tweets %}
     <ul>
         {% for tweet in tweets %}
-        <li>{{ tweet["text"] }}</li>
+        <li>{{ tweet["text"] }}<span><i>{{tweet["date"]}}</i></span></li>
         {% endfor %}
     </ul>
     
