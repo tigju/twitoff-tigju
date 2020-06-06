@@ -11,6 +11,10 @@ BASILICA_API_KEY = os.getenv("BASILICA_API_KEY")
 connection = basilica.Connection(BASILICA_API_KEY)
 # print(type(connection)) #> <class 'basilica.Connection'>
 
+# another approach to puth inside the function and import 
+# def basilica_api_client():
+#     return basilica.Connection(BASILICA_API_KEY)
+
 if __name__ == "__main__":
     
     sentences = [
