@@ -16,23 +16,43 @@ class Book(db.Model):
     def __repr__(self):
         return f"<Book {self.id} {self.title}>"
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True, nullable=False)
-    email = db.Column(db.String, unique=True, nullable=False)
+################################### Assignment 1 ##############
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String, unique=True, nullable=False)
+#     email = db.Column(db.String, unique=True, nullable=False)
 
-    def __repr__(self):
-        return f"<Tweet {self.id} {self.text}>"
+#     def __repr__(self):
+#         return f"<User {self.id} {self.username}>"
+
+# class Tweet(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     text = db.Column(db.String(280))
+#     user_id = db.Column(db.String(128))
+#     date = db.Column(db.DateTime, default=datetime.datetime.now())
+
+#     def __repr__(self):
+#         return f"<Tweet {self.id} {self.text} {self.date}>"
+################################################################    
+
+
+class User(db.Model):
+    id = db.Column(db.BigInteger, primary_key=True)
+    screen_name = db.Column(db.String(128), nullable=False)
+    name = db.Column(db.String)
+    location = db.Column(db.String)
+    followers_count = db.Column(db.Integer)
+    #latest_tweet_id = db.Column(db.BigInteger)
+
 
 class Tweet(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(280))
-    user_id = db.Column(db.String(128))
-    date = db.Column(db.DateTime, default=datetime.datetime.now())
+    id = db.Column(db.BigInteger, primary_key=True)
+    user_id = db.Column(db.BigInteger, db.ForeignKey("user.id"))
+    full_text = db.Column(db.String(500))
+    embedding = db.Column(db.PickleType)
 
-    def __repr__(self):
-        return f"<Tweet {self.id} {self.text} {self.date}>"
-    
+    user = db.relationship("User", backref=db.backref("tweets", lazy=True))
+
 def parse_records(database_records):
     """
     A helper method for converting a list of database record objects into a list of dictionaries, so they can be returned as JSON

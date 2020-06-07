@@ -14,7 +14,7 @@
     {% if tweets %}
     <ul>
         {% for tweet in tweets %}
-        <li>{{ tweet["text"] }}<span><i>{{tweet["date"]}}</i></span></li>
+        <li>{{ tweet["full_text"] }}</li>
         {% endfor %}
     </ul>
     

@@ -19,7 +19,12 @@ flask db init
 flask db migrate
 flask db upgrade
 ```
-
+if adding new table or db afer removal of existing:
+```sh
+flask db revision --rev-id 30dc7f6b846a # your revision id
+flask db migrate
+flask db upgrade
+```
 # Usage 
 
 ```sh
