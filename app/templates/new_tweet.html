@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- app/templates/new_book.html -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New tweet</title>
-</head>
+{% extends "base.html" %}
+    {% block content %}
 
-<body>
     <h1>Add New Tweet</h1>
 
     <p>Please type your text in the field!</p>
@@ -26,6 +21,4 @@
 
         <button>Tweet</button>
     </form>
-</body>
-
-</html>
+    {% endblock %}

@@ -1,0 +1,29 @@
+<!-- app/templates/user.html -->
+
+{% extends "base.html" %}
+    {% block content %}
+    <div class="row">
+        <div class="col-md-12 ">
+            <h2>Twitter User: {{ user.screen_name }} </h2>    
+            <p>Name: {{ user.name }}</p>
+            <p>Location: {{ user.location }}</p>
+            <p>Followers: {{ user.followers_count }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Resent Tweets</h3>
+            {% if tweets %}
+            <ul>
+                {% for status in tweets %}
+                <li><p>{{ status.full_text }}</p></li>
+                <hr>
+                {% endfor %}
+            </ul>
+    </div>
+    {% else %}
+    <p>No tweets found.</p>
+    {% endif %}
+    </div>
+    {% endblock %}
+

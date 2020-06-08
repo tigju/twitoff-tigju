@@ -1,5 +1,12 @@
 # # app/routes/book_routes.py
 
+from app.services.basilica_service import connection as basilica_api_client
+from app.services.twitter_service import api as twitter_api_client
+from app.models import db, User, Tweet, parse_records
+from flask import Blueprint, render_template, jsonify
+
+twitter_routes = Blueprint("twitter_routes", __name__)
+
 ######################## Assignment 1 #############################################
 # from flask import Blueprint, jsonify, request, render_template #, flash, redirect
 # from app.models import db, Tweet, parse_records
@@ -14,14 +21,14 @@
 #     tweets = parse_records(tweet_records)
 #     return jsonify(tweets)
 
-# @twitter_routes.route("/tweets")
-# def show_tweets():
+@twitter_routes.route("/tweets")
+def show_tweets():
 
-#     tweet_records = Tweet.query.all()
-#     print(tweet_records)
+    tweet_records = Tweet.query.all()
+    print(tweet_records)
 
-#     tweets = parse_records(tweet_records)
-#     return render_template("tweets.html", message="List of Tweets", tweets=tweets)
+    tweets = parse_records(tweet_records)
+    return render_template("tweets.html", message="List of All Tweets", tweets=tweets)
 
 # @twitter_routes.route("/tweets/new")
 # def new_tweet():
@@ -41,12 +48,6 @@
 #     })
 ##################### end Assignment 1 ####################
 
-from app.services.basilica_service import connection as basilica_api_client
-from app.services.twitter_service import api as twitter_api_client
-from app.models import db, User, Tweet, parse_records
-from flask import Blueprint, render_template, jsonify
-
-twitter_routes = Blueprint("twitter_routes", __name__)
 
 
 @twitter_routes.route("/users/<screen_name>")
@@ -89,5 +90,5 @@ def get_user(screen_name=None):
         db.session.add(db_tweet)
         counter += 1
     db.session.commit()
-    return "OK"
-    #return render_template("user.html", user=db_user, tweets=statuses) # tweets=db_tweets
+    # return "OK"
+    return render_template("user.html", user=db_user, tweets=statuses) # tweets=db_tweets

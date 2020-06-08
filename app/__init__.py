@@ -11,6 +11,7 @@ DATABASE_URI = "sqlite:///twitoff_tigju_development.db" # using relative filepat
 
 def create_app():
     app = Flask(__name__)
+    app.static_folder = 'static' # for css
 
     app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
     db.init_app(app)
