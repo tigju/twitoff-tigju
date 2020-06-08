@@ -30,7 +30,7 @@ def list_books_for_humans():
     print(book_records)
 
     books = parse_records(book_records)
-    return render_template("books.html", message="Here's some books", books=books)
+    return render_template("books.html", message="Here's a list of All Books", books=books)
 
 @book_routes.route("/books/new")
 def new_book():
