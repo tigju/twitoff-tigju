@@ -35,12 +35,15 @@ def load_model():
 if __name__ == "__main__":
 
 ############### LIVE-TRAINING IN REAL TIME APPROACH ##########
+    
+    # train model
     X, y = load_iris(return_X_y=True)
     #print(type(X), X.shape) #> <class 'numpy.ndarray'> (150, 4)
     #print(type(y), y.shape) #> <class 'numpy.ndarray'> (150,)
     classifier = LogisticRegression()  # for example
     classifier.fit(X, y)
 
+    # make predictions
     X, y = load_iris(return_X_y=True)
     inputs = X[:2, :]
     print(type(inputs), inputs)
@@ -51,8 +54,11 @@ if __name__ == "__main__":
 ################################################################
 
 ############### PRE-TRAIN AND LOAD SAVED MODEL APPROACH ########
+    
+    # train and save model
     train_and_save_model()
 
+    # load model
     clf = load_model()
     print("CLASSIFIER:", clf)
 
