@@ -1,6 +1,9 @@
 # app/__init__.py
-
+import os
 from flask import Flask
+from dotenv import load_dotenv
+
+load_dotenv() # loads .env 
 
 from app.models import db, migrate
 from app.routes.home_routes import home_routes
@@ -8,14 +11,15 @@ from app.routes.book_routes import book_routes
 from app.routes.twitter_routes import twitter_routes
 from app.routes.stats_routes import stats_routes
 
-DATABASE_URI = "sqlite:///twitoff_tigju_development.db" # using relative filepath
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 SECRET_KEY = "temporary secret value"
 def create_app():
     app = Flask(__name__)
     app.static_folder = 'static' # for css
 
     app.config["SECRET_KEY"] = SECRET_KEY
-    app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
+    app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
     db.init_app(app)
     migrate.init_app(app, db)
 
