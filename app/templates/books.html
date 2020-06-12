@@ -1,14 +1,16 @@
 <!-- app/templates/books.html -->
 
 {% extends "base.html" %}
-    {% block content %}
+
+{% set active_page = "books" %}
+
+{% block content %}
 
     <h2>Welcome to the Books Page</h2>
-    
-    <p>{{ message }}</p>
-    
-    <a class="btn btn-primary" role="button" href="/books/new">Add a Book to Our Collection</a>
-
+    <br>
+    <a class="btn btn-secondary mb-5" role="button" href="/books/new">Add New Book to Our Collection</a>
+    <br>
+    <h4>{{ message }}</h4>
     {% if books %}
     <ul>
         {% for book in books %}
@@ -20,4 +22,5 @@
     {% else %}
     <p>Books not found.</p>
     {% endif %}
-    {% endblock %}
+
+{% endblock %}

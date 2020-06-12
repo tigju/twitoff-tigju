@@ -1,7 +1,8 @@
 <!-- app/templates/new_book.html -->
 
 {% extends "base.html" %}
-    {% block content %}
+
+{% block content %}
 
     <h1>Add New Tweet</h1>
     <p>Please type your text in the field!</p>
@@ -18,6 +19,7 @@
             <option value="user2">User 2</option>
         </select>
 
-        <button>Tweet</button>
+        <button class="btn btn-dark">Tweet</button>
     </form>
-    {% endblock %}
+
+{% endblock %}

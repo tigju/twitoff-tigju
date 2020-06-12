@@ -1,7 +1,8 @@
 <!-- app/templates/tweets.html -->
 
 {% extends "base.html" %}
-    {% block content %}
+
+{% block content %}
 
     <h2>Welcome to the Tweets Page</h2>
     <p>{{ message }}</p>
@@ -9,7 +10,7 @@
     {% if tweets %}
     <ul>
         {% for tweet in tweets %}
-        <li><p>{{ tweet["full_text"] }}</p></li>
+        <li><p>{{ tweet["full_text"] }}</p><span>- {{tweet.user}}</span></li>
         <hr>
         {% endfor %}
     </ul>
@@ -17,4 +18,5 @@
     {% else %}
     <p>Tweets not found.</p>
     {% endif %}
-    {% endblock %}
+    
+{% endblock %}

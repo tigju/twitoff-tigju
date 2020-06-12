@@ -27,8 +27,8 @@ def show_tweets():
     tweet_records = Tweet.query.all()
     print(tweet_records)
 
-    tweets = parse_records(tweet_records)
-    return render_template("tweets.html", message="List of All Tweets", tweets=tweets)
+    some_tweets = parse_records(tweet_records)
+    return render_template("tweets.html", message="List of All Tweets", tweets=some_tweets)
 
 # @twitter_routes.route("/tweets/new")
 # def new_tweet():
@@ -55,35 +55,35 @@ def get_user(screen_name=None):
     print(screen_name)
 
     twitter_user = twitter_api_client.get_user(screen_name)
-    statuses = twitter_api_client.user_timeline(
+    user_tweets = twitter_api_client.user_timeline(
         screen_name, tweet_mode="extended", count=150)
-    print("STATUSES COUNT:", len(statuses))
+    print("STATUSES COUNT:", len(user_tweets))
     #return jsonify({"user": user._json, "tweets": [s._json for s in statuses]})
 
     # get existing user from the db or initialize a new one:
-    db_user = User.query.get(twitter_user.id) or User(id=twitter_user.id)
-    db_user.screen_name = twitter_user.screen_name
-    db_user.name = twitter_user.name
-    db_user.location = twitter_user.location
-    db_user.followers_count = twitter_user.followers_count
-    db.session.add(db_user)
+    user = User.query.get(twitter_user.id) or User(id=twitter_user.id)
+    user.screen_name = twitter_user.screen_name
+    user.name = twitter_user.name
+    user.location = twitter_user.location
+    user.followers_count = twitter_user.followers_count
+    db.session.add(user)
     db.session.commit()
     #return "OK"
 
-    all_tweet_texts = [status.full_text for status in statuses]
+    all_tweet_texts = [tweet.full_text for tweet in user_tweets]
     embeddings = list(basilica_api_client.embed_sentences(
         all_tweet_texts, model="twitter"))
     print("NUMBER OF EMBEDDINGS", len(embeddings))
 
     # TODO: explore using the zip() function maybe...
     counter = 0
-    for status in statuses:
-        print(status.full_text)
+    for tweet in user_tweets:
+        print(tweet.full_text)
         print("----")
         # get existing tweet from the db or initialize a new one:
-        db_tweet = Tweet.query.get(status.id) or Tweet(id=status.id)
-        db_tweet.user_id = status.author.id  # or db_user.id
-        db_tweet.full_text = status.full_text
+        db_tweet = Tweet.query.get(tweet.id) or Tweet(id=tweet.id)
+        db_tweet.user_id = tweet.author.id  # or db_user.id
+        db_tweet.full_text = tweet.full_text
         embedding = embeddings[counter]
         print(len(embedding))
         db_tweet.embedding = embedding
@@ -91,4 +91,5 @@ def get_user(screen_name=None):
         counter += 1
     db.session.commit()
     # return "OK"
-    return render_template("user.html", user=db_user, tweets=statuses) # tweets=db_tweets
+    # tweets=db_tweets
+    return render_template("user.html", user=user, tweets=user_tweets)

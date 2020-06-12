@@ -9,11 +9,12 @@ from app.routes.twitter_routes import twitter_routes
 from app.routes.stats_routes import stats_routes
 
 DATABASE_URI = "sqlite:///twitoff_tigju_development.db" # using relative filepath
-
+SECRET_KEY = "temporary secret value"
 def create_app():
     app = Flask(__name__)
     app.static_folder = 'static' # for css
 
+    app.config["SECRET_KEY"] = SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
     db.init_app(app)
     migrate.init_app(app, db)

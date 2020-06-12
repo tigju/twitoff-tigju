@@ -1,36 +1,53 @@
 <!-- app/templates/prediction_form.html -->
 
 {% extends "base.html" %}
+
+{% set active_page = "prediction_form" %}
+
 {% block content %}
 
         <h2>Prediction Time</h2>
         <p>Use the form below to predict which user is more likely to say a given tweet...</p>
         <form action="/predict" method="POST">
+            <div class="form-row"></div>
+                <!-- TODO: Instead of hard-coding these drop-down menu options, dynamically populate them based on user records from the database -->
+                <label for="screen_name_a">Twitter User A</label>
+                <select name="screen_name_a" class="form-control">
+                    {% if users %}
+                    {% for user in users %}
+                    <option value="{{user.screen_name}}">@{{user.screen_name}}</option>
+                    {% endfor %}
+                    {% else %}
+                    <p>Users not found.</p>
+                    {% endif %}
+                    <!-- <option value="elonmusk" selected="true">@elonmusk</option>
+                    <option value="justinbieber">@justinbieber</option>
+                    <option value="tigju24">@tigju24</option> -->
+                </select>
+                <br>
+            
+                <!-- TODO: Instead of hard-coding these drop-down menu options, dynamically populate them based on user records from the database -->
+                <label for="screen_name_b">Twitter User B</label>
+                <select name="screen_name_b" class="form-control">
 
-            <!-- TODO: Instead of hard-coding these drop-down menu options, dynamically populate them based on user records from the database -->
-            <label>Twitter User A:</label>
-            <select name="screen_name_a">
-                <option value="elonmusk" selected="true">@elonmusk</option>
-                <option value="justinbieber">@justinbieber</option>
-                <option value="tigju24">@tigju24</option>
-            </select>
-            <br>
-        
-            <!-- TODO: Instead of hard-coding these drop-down menu options, dynamically populate them based on user records from the database -->
-            <label>Twitter User B:</label>
-            <select name="screen_name_b">
-                <option value="elonmusk">@elonmusk</option>
-                <option value="justinbieber" selected="true">@justinbieber</option>
-                <option value="tigju24">@tigju24</option>
-            </select>
-            <br>
-        
-            <label>Tweet Text:</label>
-            <input type="text" name="tweet_text" placeholder="Tesla Model S production facility is great"
-                value="Tesla Model S production facility is great">
-            <br>
+                    {% if users %}
+                    {% for user in users %}
+                    <option value="{{user.screen_name}}">@{{user.screen_name}}</option>
+                    {% endfor %}
+                    {% else %}
+                    <p>Users not found.</p>
+                    {% endif %}
+                    <!-- <option value="justinbieber" selected="true">@justinbieber</option>
+                    <option value="tigju24">@tigju24</option> -->
+                </select>
+                <br>
+            
+                <label for="tweet_text">Tweet Text</label>
+                <textarea type="text" name="tweet_text" class="form-control" maxlength="280" placeholder="Tesla Model S production facility is great"
+                    value="Tesla Model S production facility is great"></textarea>
+                <br>
 
-            <button>Submit</button>
+                <button class="btn btn-secondary">Predict</button>
         </form>
        
 {% endblock %}
