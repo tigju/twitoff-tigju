@@ -10,6 +10,7 @@ from app.routes.home_routes import home_routes
 from app.routes.book_routes import book_routes
 from app.routes.twitter_routes import twitter_routes
 from app.routes.stats_routes import stats_routes
+from app.routes.admin_routes import admin_routes
 
 
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -27,6 +28,7 @@ def create_app():
     app.register_blueprint(book_routes)
     app.register_blueprint(twitter_routes)
     app.register_blueprint(stats_routes)
+    app.register_blueprint(admin_routes)
     
     return app
 
