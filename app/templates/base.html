@@ -32,8 +32,8 @@
     <!-- see: https://getbootstrap.com/docs/4.0/components/navbar/ -->
     {% set nav_links = [
       ('/', 'prediction_form', 'Predict'),
-      ('/tweets', 'tweets', 'Tweets')
-
+      ('/tweets', 'tweets', 'Tweets'),
+      ('/list', 'users', 'Users')
     ] -%}
     {% set active_page = active_page|default('index') -%}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

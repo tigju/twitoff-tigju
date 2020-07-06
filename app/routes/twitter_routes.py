@@ -3,7 +3,7 @@
 from app.services.basilica_service import connection as basilica_api_client
 from app.services.twitter_service import api as twitter_api_client
 from app.models import db, User, Tweet, parse_records
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, request, redirect,flash
 
 twitter_routes = Blueprint("twitter_routes", __name__)
 
@@ -25,10 +25,12 @@ twitter_routes = Blueprint("twitter_routes", __name__)
 def show_tweets():
 
     tweet_records = Tweet.query.all()
+    user_records = User.query.all()
     print(tweet_records)
-
-    some_tweets = parse_records(tweet_records)
-    return render_template("tweets.html", message="List of All Tweets", tweets=some_tweets)
+    parsed_tweets = parse_records(tweet_records)
+    parsed_users = parse_records(user_records)
+    # return jsonify(parsed_tweets)
+    return render_template("tweets.html", message="List of All Tweets", tweets=parsed_tweets, users=parsed_users)
 
 # @twitter_routes.route("/tweets/new")
 # def new_tweet():
@@ -93,3 +95,24 @@ def get_user(screen_name=None):
     # return "OK"
     # tweets=db_tweets
     return render_template("user.html", user=user, tweets=user_tweets)
+
+
+# user list or find user in db
+@twitter_routes.route("/list", methods=["GET","POST"])
+def get_user_by_name():
+    if request.method == 'GET':
+        users = parse_records(User.query.all())
+        return render_template('users_list.html', users=users)
+    # print("FORM DATA:", dict(request.form))
+    else:
+        user = dict(request.form)
+        # print(user["username"])
+        user = User.query.filter_by(screen_name=user["username"]).one_or_none()
+        if not user:
+            flash("User not found in database", "danger")
+            return redirect("/list")
+        else:    
+            users = []
+            users.append(user)
+            return render_template('users_list.html', users=users)
+    

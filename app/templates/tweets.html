@@ -10,7 +10,13 @@
     {% if tweets %}
     <ul>
         {% for tweet in tweets %}
-        <li><p>{{ tweet["full_text"] }}</p><span>- {{tweet.user}}</span></li>
+        <li>
+            <p>{{ tweet["full_text"] }}</p>
+            {% for user in users %}
+                {% if user['id'] == tweet['user_id'] %}
+                    <span>- {{ user['screen_name'] }}</span></li>
+                {% endif %}
+            {% endfor %}
         <hr>
         {% endfor %}
     </ul>
